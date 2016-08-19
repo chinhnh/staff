@@ -28,8 +28,8 @@ class PhongbanRequest extends Request {
 	}
 	public function messages(){
 		return[
-			'phong_ban_id.required'=>'please put phong ban id',
-			'ten_phong_ban.required'=>'please put ten phong ban'
+			'phong_ban_id.required'=>'phong ban id empty',
+			'ten_phong_ban.required'=>'ten phong ban empty'
 		];
 	}
 

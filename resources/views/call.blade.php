@@ -28,18 +28,20 @@
 
     <!-- Custom Fonts -->
      <link href="{{ asset('public/assets/css/font-awesome.css')}}" rel="stylesheet" />
+    <script src="{{ asset('public/editor/ckeditor/sample.js')}}"></script>
+    <script src="{{ asset('public/editor/ckeditor/ckeditor.js')}}"></script>
        <script src="{{ asset('public/assets/js/jquery-1.11.1.js')}}"></script>
          <script src="http://code.jquery.com/jquery-latest.js"></script>
      <script type="text/javascript">
    $(function(){
     $('#bt_thongtin').click(function(){
-        $('#thong_tin').toggle(10);
+        $('#thong_tin').toggle(300);
     });
 });
 
  $(function(){
     $('#bt_congviec').click(function(){
-        $('#cong_viec').toggle(10);
+        $('#cong_viec').toggle(300);
     });
 });
 
@@ -51,7 +53,7 @@
 
 </head>
 
-<body>
+<body ng-app="Myapp" >
 
     <div id="wrapper">
 
@@ -73,10 +75,9 @@
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-envelope fa-fw"></i>  <i class="fa fa-caret-down"></i>
                     </a>
-                    <ul class="dropdown-menu dropdown-messages">
+                    <ul class="dropdown-menu">
                         <li>
-                            <a href="#">      
-                            </a>
+                            <a class="pull-right" href="{{url('repost')}}" ng-controller="RepostCtrl">Inbox <span class="badge" style="background-color:red;">@{{countrepost}}</span></a>
                         </li>                      
                   
                     </ul>
@@ -121,7 +122,7 @@
                         <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        <li><a href="{{url('auth/logout')}}"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -145,7 +146,7 @@
                                 <div class="col-md-12 " style="margin-top:20px" >
                                 <a class="pull-left" href="#">Profie <span class="badge" style="background-color:green;">+</span> </a>
                     
-                                <a class="pull-right" href="#">Inbox <span class="badge" style="background-color:red;">1993</span></a>
+                                <a class="pull-right" href="{{url('repost')}}" ng-controller="RepostCtrl">Inbox <span class="badge" style="background-color:red;">@{{countrepost}}</span></a>
                            </div>
                        </div>
                             </div>
@@ -162,20 +163,20 @@
                             </div>
                             <!-- /input-group -->
                         </li>
-                        <li><a class="active" href="index.html">
-                            <i class="fa fa-dashboard fa-fw"></i> Bảng điều khiển <span class="badge pull-right" style="background-color:blue;">></span></a>
+                        <li><a  href="{{url('/')}}">
+                            <i class="fa fa-dashboard fa-fw"></i> Bảng điều khiển</a>
                         </li>
-                        <li><a href="{{ asset('nhansu')}}">
-                            <i class="fa fa-group fa-fw"></i> Danh sách nhân viên <span class="label label-info pull-right">></span></a>
+                        <li><a  href="{{ asset('nhansu')}}">
+                            <i class="fa fa-group fa-fw"></i> Danh sách nhân viên</a>
                         </li>               
                         <li><a href="{{ asset('createNhansu')}}">
                             <i class="fa fa-user-plus fa-fw"></i> Thêm nhân viên <span class="badge pull-right" style="background-color:green;">+</span></a>
                         </li>
                         <li><a href="{{ asset('phongban')}}">
-                            <i class="fa fa-home fa-fw"></i> Phòng ban <span class="label label-danger pull-right">></span></a>
+                            <i class="fa fa-home fa-fw"></i> Phòng ban</a>
                         </li>
                         <li><a href="{{ asset('chucvu')}}">
-                            <i class="fa fa-user fa-fw"></i> Chức vụ <span class="label label-warning pull-right">></span></a>
+                            <i class="fa fa-user fa-fw"></i> Chức vụ</a>
                         </li>                                    
                     </ul>
                 </div>
@@ -191,6 +192,8 @@
   </div>
     <!-- /#wrapper -->
  <script src="{{ asset('public/assets/js/jquery-1.11.1.js')}}"></script>
+  <script type="text/javascript" src="{{ asset('public/libs/angular.min.js') }}"></script>
+ <script type="text/javascript" src="{{ asset('public/libs/angular.js') }}"></script>
                 <!-- BOOTSTRAP SCRIPTS -->
    <script src="{{ asset('public/assets/js/bootstrap.js')}}"></script>
 
@@ -210,8 +213,9 @@
 <style>
 td,th{text-align: center;}
 th{
-    /*background-color: #CDCDCD;*/
+    background-color: #2c3e50;
     color: white;
+	
 }
   #thong_tin{
     display: none;
@@ -221,3 +225,12 @@ th{
   }
 
 </style>
+<script type="text/javascript">
+    
+$('li').on('click', 'a', function(){
+$('a').removeClass('active');
+$(this).addClass('active');
+});
+
+
+</script>

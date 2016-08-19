@@ -9,6 +9,8 @@ use App\NhanvienModel;
 use Input,File;
 use App\Http\Requests\NhanvienRequest;
 use DB;
+use App\Http\Requests\HopdongRequest;
+use App\HopdongModel;
 class NhanvienController extends Controller
 {
 
@@ -70,8 +72,10 @@ class NhanvienController extends Controller
         $require='chi_tiet_nhan_vien';
         $data = DB::table('tbl_nhanvien')->where('ma_nhan_vien', $id)->get();
         $dataCongviec = DB::table('tbl_congviec')->where('ma_nhan_vien', $id)->get();
+        $dataHopdong= DB::table('tbl_hopdong')->where('ma_nhan_vien', $id)->get();
+        $dataGiadinh= DB::table('tbl_quanhegiadinh')->where('ma_nhan_vien', $id)->get();
         return view('call')->nest('content',$require,
-            array('id'=>$id,'tt'=>$tt,'dataNhanvien'=>$data,'dataCongviec'=>$dataCongviec));
+            array('id'=>$id,'tt'=>$tt,'dataNhanvien'=>$data,'dataCongviec'=>$dataCongviec,'dataHopdong'=>$dataHopdong ,'dataGiadinh'=>$dataGiadinh));
     }
 
    public function showpage($id)
@@ -161,6 +165,6 @@ class NhanvienController extends Controller
     {
         //
         nhanvienModel::destroy($id);
-        return \Redirect::to('nhansu');
+        return \Redirect::to('/');
     }
 }

@@ -2,9 +2,10 @@
                 <div class="col-lg-6 pull-left">
                    
                 </div>
-                <div class="col-lg-6 pull-right">
-                    <a href="{{asset('show/thong-tin')}}/{{$id}}"> <button id="table" class="btn btn-danger active">Table <i class="fa fa-caret-down"></i></button></a>
+                 <div class="col-lg-6 pull-right">
+                <a href="{{asset('show/thong-tin')}}/{{$id}}">    <button id="table" class="btn btn-danger active">Table <i class="fa fa-caret-down"></i></button></a>
                 <a href="{{asset('showpage')}}/{{$id}}"><button id="page" class="btn btn-danger">Page <i class="fa fa-caret-down"></i></button></a> 
+                <a href="{{ asset('print')}}/{{$id}}"><button id="page" class="btn btn-success">Print <i class="fa fa-print"></i></button></a>
                 </div>
 
                 <!-- /.col-lg-12 -->

@@ -39,7 +39,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 </head>
 
-<body>
+<body ng-app="Myapp">
 
     <div id="wrapper">
 
@@ -109,7 +109,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
                         <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        <li><a href="{{url('auth/logout')}}"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -133,7 +133,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
                             <!-- /input-group -->
                         </li>
                         <li>
-                            <a class="active" href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                            <a class="active" href="{{url('/')}}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
                        
                         <li>

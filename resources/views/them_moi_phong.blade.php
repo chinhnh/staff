@@ -34,7 +34,6 @@
             <input type="hidden"  name="submit" value="add" />
             <input type="submit" class="btn btn-success" value=":|: Thêm :|:" /></td></div>
         </tr>
-        </table>
     </form>
 
 </div>

@@ -1,4 +1,10 @@
 
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">Thêm mới nhân sự</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
 <div class="col-md-12">
     <div style="overflow:auto;" >
         <form action="{{ asset('storeNhansu') }}" method="post" enctype="multipart/form-data" >

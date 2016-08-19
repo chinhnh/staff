@@ -5,12 +5,13 @@
                 <div class="col-lg-6 pull-right">
                 <a href="{{asset('show/thong-tin')}}/{{$id}}">    <button id="table" class="btn btn-danger active">Table <i class="fa fa-caret-down"></i></button></a>
                 <a href="{{asset('showpage')}}/{{$id}}"><button id="page" class="btn btn-danger">Page <i class="fa fa-caret-down"></i></button></a> 
+				<a href="{{ asset('print')}}/{{$id}}"><button id="page" class="btn btn-success">Print <i class="fa fa-print"></i></button></a>
                 </div>
 
                 <!-- /.col-lg-12 -->
             </div>
 
-        <div class="row"> 
+        <div class="row content-page"> 
             
 <div class="col-md-12">
  @if (count($errors) > 0)
@@ -37,7 +38,7 @@
                             </div><br />
 
 
-                            <!--------------------------------------------------------------------------------------------------------------------> 
+                            <!----------------> 
 
                             <div class="col-md-12" >
 
@@ -102,22 +103,35 @@
 
                             <!------>
                             
-                                <div id="thong_tin">
-                                <!--****************************************************************************************************************-->
+                                <div id="thong_tin">                       
                                 @include('cap_nhat_thong_tin_nhan_vien');
                                </div>
 
                                 <div class="col-md-12" style="text-align: center;">
                                 <div class="row" >
 
-                                    <div class="col-md-4"><div class="panel panel-danger" >         
-                                    <div  class=" panel-heading" ><i class="fa fa-calendar fa-2x"></i><a href="{{ asset('show/cong-viec')}}/{!! $id !!}"> Thông tin công việc</a></div>
-                                    </div>
-                                    </div>
                                     <div class="col-md-4">
-                                        <div class="panel panel-info" >         
+                                    <div class="panel panel-danger" >         
+                                    <div  class=" panel-heading" ><i class="fa fa-calendar fa-2x"></i>
+                                    <a href="{{ asset('show/cong-viec')}}/{!! $id !!}"> Công việc</a>
+                                    </div>
+                                    </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                    <div class="panel panel-info" >         
                                     <div  class=" panel-heading" >
-                                    <i class="fa fa-print fa-2x"></i><a href="{{ asset('print')}}/{{$id}}"> In hồ sơ</a></div>
+                                    <i class="fa fa-book fa-2x"></i>
+                                    <a href="{{ asset('show/hopdong')}}/{{$id}}"> Hợp đồng</a>
+                                    </div>
+                                    </div>
+                                    </div>
+
+                                      <div class="col-md-4">
+                                    <div class="panel panel-warning" >         
+                                    <div  class=" panel-heading" ><i class="fa fa-group fa-2x"></i>
+                                    <a href="{{ asset('show/giadinh')}}/{!! $id !!}"> Gia đình</a>
+                                    </div>
                                     </div>
                                     </div>
 
@@ -126,7 +140,7 @@
                             </div>
                              
 
-                            <!------>
+ <!--################################################################-->
                             <?php if ($tt == "cong-viec") {?>
                          
                                 <div class="col-md-12"> <div class="panel panel-success"><div class="panel-heading " style=" text-align:center;color: blue;" >Thông tin công việc</div></div></div>
@@ -182,7 +196,7 @@
                                     </table>     
                                 </div>
                                 <?php }?>
-                                <!--**********************************************************************************************************************************-->  
+                                <!--***********************-->  
                                
                                 @if (count($dataCongviec)>0)
                                 <div id="cong_viec"> @include ('cap_nhat_thong_tin_cong_viec');</div>
@@ -191,6 +205,100 @@
                                 @endif
                             
                                 <?php } ?>
-                        </div>
+ <!--################################################################-->
+ <?php if ($tt == "hopdong") {?>
+
+<div class="col-md-12"> 
+<div class="panel panel-success">
+<div class="panel-heading " style=" text-align:center;color: blue;" >Thông tin hợp đồng</div>
+</div>
+</div>
+ <?php  if(count($dataHopdong)>0) { ?>
+<div class="col-md-12" >
+    <table class="table table-bordered table-responsive" >
+    <tr>
+    <th width="10"  align="center">Số quyết định</th>
+    <th width="10"  align="center">Từ ngày</th>
+    <th width="90"  align="center">Đến ngày</th>
+    <th width="90"  align="center">Loại hợp dồng</th>           
+    <th width="170" align="center">Ghi chú</th>
+    <th width="50"  align="center"></th>           
+    </tr>
+    @foreach ($dataHopdong as $row) 
+    <tr>
+        <td>{{$row->so_quyet_dinh}}</td>
+        <td>{{$row->tu_ngay}}</td>
+        <td>{{$row->den_ngay}}</td>
+        <td>{{$row->loai_hop_dong}} Năm</td>
+        <td>{{$row->ghi_chu}}</td>
+        <td><a href="{{url('delHopdong')}}/{{$row->id}}"><i class="fa fa-close fa-2x"></i></a></td>
+    </tr>
+@endforeach
+    </table>
+</div>
+<?php }
+else{
+    echo "Chưa có hợp đồng";
+}
+ ?>
+
+
+
+ <?php } ?>
+ <!--################################################################-->
+ <?php if ($tt == "giadinh") {?>
+
+<div class="col-md-12"> 
+<div class="panel panel-success">
+<div class="panel-heading " style=" text-align:center;color: blue;" >Thông tin gia đình</div>
+</div>
+</div>
+ <?php  if(count($dataGiadinh)>0) { ?>
+<div class="col-md-12" >
+    <table class="table table-bordered table-responsive" >
+    <tr>
+    <th width="10"  align="center">Tên người thân</th>
+    <th width="10"  align="center">Năm sinh</th>
+    <th width="90"  align="center">Mối quan hệ</th>
+    <th width="90"  align="center">Nghề nghiệp</th> 
+     <th width="170" align="center">Điện THOẠI</th>          
+    <th width="170" align="center">Địa chỉ</th>
+     <th width="170" align="center">Ghi chú</th>
+    <th width="50"  align="center"></th>           
+    </tr>
+    @foreach ($dataGiadinh as $row) 
+    <tr>
+        <td>{{$row->ten_nguoi_than}}</td>
+        <td>{{$row->nam_sinh}}</td>
+        <td>{{$row->moi_quan_he}}</td>
+        <td>{{$row->nghe_nghiep}}</td>
+        <td>{{$row->dien_thoai}}</td>
+        <td>{{$row->dia_chi}}</td>
+        <td>{{$row->ghi_chu}}</td>
+        <td><a href="{{url('delGiadinh')}}/{{$row->id}}"><i class="fa fa-close fa-2x"></i></a></td>
+    </tr>
+@endforeach
+    </table>
+</div>
+<?php }
+else{
+    echo "Chưa có thông tin gia đình";
+}
+ ?>
+
+
+
+
+
+ <?php } ?>
+  <!--################################################################-->
+ </div>
                    
 
+<style type="text/css">
+ .content-page{
+    margin-bottom: 100px;
+ }   
+
+
+</style>

@@ -74,7 +74,14 @@ Route::post('updateChucvu/{id}', 'ChucvuController@update');
 
 Route::post('/search', 'SearchController@index');
 
+//hop dong
+Route::get('/hopdong/{id}','HopdongController@show');
 
+//repost
+Route::get('repost','RepostController@index');
+Route::post('/storeRepost', 'RepostController@store');
+Route::get('viewRepost/{id}','RepostController@show');
+Route::get('delRepost/{id}','RepostController@destroy');
 Route::get('showjoin', function() {
     $data = App\CongviecModel::find('001')->phongban()->get();
     print_r($data);
@@ -123,18 +130,16 @@ Route::get('print/{id}', function($id) {
 Route::group(["prefix" => "api",'middleware' => 'cors'], function() {
 
     Route::post('storeapi',function(){
+	header("Access-Control-Allow-Origin: *");
+    header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
+    header('Access-Control-Allow-Headers: Origin, Content-Type, Accept, Authorization, X-Request-With');
+    header('Access-Control-Allow-Credentials: true');
 	$postdata = file_get_contents("php://input");
 	 if (isset($postdata)) {
-	 $request = json_decode($postdata);
-	 $username = $request->username;
-	 
-	 if ($username != "") {
-	 echo "Server returns: " . $username;
-	 }
-	 else {
+	
 	 echo "Empty username parameter!";
 	 }
-	 }
+	 
 	 else {
 	 echo "Not called properly with username parameter!";
 	 }
@@ -166,9 +171,28 @@ Route::group(["prefix" => "api",'middleware' => 'cors'], function() {
         $data = $request::all()->toJson();
         return $data;
     });
+      Route::get('giadinh', function (App\GiadinhModel $request) {
+        $data = $request::all();
+        return $data;
+
+    });
+    Route::get('repost', function (App\RepostModel $request) {
+      $data = $request::all();
+        return $data;
+    });
+        Route::get('statistic', function() {
+        $data = DB::table('tbl_congviec')
+            ->join('tbl_nhanvien', 'tbl_nhanvien.ma_nhan_vien', '=', 'tbl_congviec.ma_nhan_vien')
+            ->join('tbl_phongban', 'tbl_phongban.phong_ban_id', '=', 'tbl_congviec.phong_ban_id')
+            ->join('tbl_chucvu', 'tbl_chucvu.chuc_vu_id', '=', 'tbl_congviec.chuc_vu_id')
+            ->join('tbl_pccongviec', 'tbl_pccongviec.cong_viec_id', '=', 'tbl_congviec.cong_viec_id')
+            ->join('tbl_bangcap', 'tbl_bangcap.bang_cap_id', '=', 'tbl_congviec.bang_cap_id')
+            ->get();
+        $json = json_encode($data);
+        return $json;
+    });
 });
 
 
 //Route::resource('Api', 'ApiController');
 
-Route::post('/storeapi','ApiController@store');

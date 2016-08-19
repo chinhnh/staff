@@ -33,7 +33,7 @@
 
 </head>
 
-<body>
+<body ng-app="Myapp" >
 
     <div id="wrapper">
 
@@ -46,7 +46,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html" style="color:white;">Quản lý nhân sự</a>
+                <a class="navbar-brand" href="home.html" style="color:white;">Quản lý nhân sự</a>
             </div>
             <!-- /.navbar-header -->
 
@@ -55,10 +55,9 @@
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-envelope fa-fw"></i>  <i class="fa fa-caret-down"></i>
                     </a>
-                    <ul class="dropdown-menu dropdown-messages">
+                    <ul class="dropdown-menu">
                         <li>
-                            <a href="#">      
-                            </a>
+                             <a href="{{url('repost')}}" ng-controller="RepostCtrl">Inbox <span class="badge" style="background-color:red;">@{{countrepost}}</span></a>
                         </li>                      
                   
                     </ul>
@@ -103,7 +102,7 @@
                         <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        <li><a href="{{url('auth/logout')}}"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -127,7 +126,7 @@
                                 <div class="col-md-12 " style="margin-top:20px" >
                                 <a class="pull-left" href="#">Profie <span class="badge" style="background-color:green;">+</span> </a>
                     
-                                <a class="pull-right" href="#">Inbox <span class="badge" style="background-color:red;">1993</span></a>
+                                <a class="pull-right" href="{{url('repost')}}" ng-controller="RepostCtrl">Inbox <span class="badge" style="background-color:red;">@{{countrepost}}</span></a>
                            </div>
                        </div>
                             </div>
@@ -145,19 +144,19 @@
                             <!-- /input-group -->
                         </li>
                         <li><a class="active" href="index.html">
-                            <i class="fa fa-dashboard fa-fw"></i> Bảng điều khiển <span class="badge pull-right" style="background-color:blue;">></span></a>
+                            <i class="fa fa-dashboard fa-fw"></i> Bảng điều khiển</a>
                         </li>
                         <li><a href="{{ asset('nhansu')}}">
-                            <i class="fa fa-group fa-fw"></i> Danh sách nhân viên <span class="label label-info pull-right">></span></a>
+                            <i class="fa fa-group fa-fw"></i> Danh sách nhân viên</a>
                         </li>               
                         <li><a href="{{ asset('createNhansu')}}">
                             <i class="fa fa-user-plus fa-fw"></i> Thêm nhân viên <span class="badge pull-right" style="background-color:green;">+</span></a>
                         </li>
                         <li><a href="{{ asset('phongban')}}">
-                            <i class="fa fa-home fa-fw"></i> Phòng ban <span class="label label-danger pull-right">></span></a>
+                            <i class="fa fa-home fa-fw"></i> Phòng ban</a>
                         </li>
                         <li><a href="{{ asset('chucvu')}}">
-                            <i class="fa fa-user fa-fw"></i> Chức vụ <span class="label label-warning pull-right">></span></a>
+                            <i class="fa fa-user fa-fw"></i> Chức vụ</a>
                         </li>                                    
                     </ul>
                 </div>
@@ -243,7 +242,7 @@
                                     </tbody>
 
                                 </table>
-                          <?php $dataNhansu->setPath('./theme') ?>
+                          <?php $dataNhansu->setPath('./home.html') ?>
                           <div class="" align="center">  {!! $dataNhansu->render() !!}</div>
                             </div> </div>
 
@@ -259,25 +258,27 @@
                            <i class="fa fa-home fa-fw"></i> Danh sách phòng ban
                         </div>
                         <!-- /.panel-heading -->
-                        <div class="panel-body">
+                        <div class="panel-body" ng-controller="PhongbanCtrl">
 
                           
-            <table class="table table-striped table-responsive">
-            
+            <table  class="table table-striped table-responsive">
+   
                     <tr>
                         <th >Ký hiệu phòng</th>         
                         <th >Tên Phòng</th> 
                     </tr>
-                <?php foreach ($dataPhongban as $row) { ?>
-                   
-                        <tr>
-                            <td >{{ $row->phong_ban_id }}</td>
-                            <td >{{ $row->ten_phong_ban }}</td>
+                       
+                        <tr ng-repeat="row in phongban">
+                           <td >@{{ row.phong_ban_id }}</td>
+                            <td >@{{ row.ten_phong_ban }}</td> 
 
                  </tr>
-                <?php } ?>
+      
             </table>
                          </div>
+
+
+
                         </div>
                         </div>            
                         
@@ -373,6 +374,8 @@
     </div>
     <!-- /#wrapper -->
  <script src="{{ asset('public/assets/js/jquery-1.11.1.js')}}"></script>
+ <script type="text/javascript" src="{{ asset('public/libs/angular.min.js') }}"></script>
+ <script type="text/javascript" src="{{ asset('public/libs/angular.js') }}"></script>
                 <!-- BOOTSTRAP SCRIPTS -->
    <script src="{{ asset('public/assets/js/bootstrap.js')}}"></script>
 
@@ -398,3 +401,12 @@ th{
 
 
 </style>
+<script type="text/javascript">
+    
+$('li').on('click', 'a', function(){
+$('a').removeClass('active');
+$(this).addClass('active');
+});
+
+
+</script>
